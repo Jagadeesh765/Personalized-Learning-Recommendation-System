@@ -1,0 +1,64 @@
+{
+  "seed": 20261022,
+  "scale": "full",
+  "row_counts": {
+    "learners": 10000,
+    "courses": 1,
+    "skills": 500,
+    "skill_prerequisites": 166,
+    "content_items": 2000,
+    "content_skills": 2000,
+    "attempts": 500000,
+    "assessment_results": 500000,
+    "learning_paths": 10000
+  },
+  "files": {
+    "learners.csv": {
+      "rows": 10000,
+      "bytes": 810049,
+      "sha256": "bb32558b1ab903600b2d3bec1b47d7e77bb7abc32fc532960a2ca5c06126b42d"
+    },
+    "courses.csv": {
+      "rows": 1,
+      "bytes": 68,
+      "sha256": "824b5e4a7cc62ea859e177ab0584a7195dfa5a66e99370bbb0b7656c5aec2fb9"
+    },
+    "skills.csv": {
+      "rows": 500,
+      "bytes": 46406,
+      "sha256": "36ec721418bed9fa59ca11eaec8a53ff2abcf8478e9e444aef71ac585dca1664"
+    },
+    "skill_prerequisites.csv": {
+      "rows": 166,
+      "bytes": 7712,
+      "sha256": "0df747a0621af1f00183551de3af3e8463593b1ae36a979fe636ff9f993d3c62"
+    },
+    "content_items.csv": {
+      "rows": 2000,
+      "bytes": 139013,
+      "sha256": "f40c7ddd97bdb973282e552c9c3513f5114017b5c948fbbb8a03ec58865145f2"
+    },
+    "content_skills.csv": {
+      "rows": 2000,
+      "bytes": 76045,
+      "sha256": "61fbcdd397a0572d65aad60000f02b8871ea9c09f3c3aacc918d98c36505c964"
+    },
+    "attempts.csv": {
+      "rows": 500000,
+      "bytes": 38240022,
+      "sha256": "1fd90a54d6b0e79ece900a703c116ea2f993f27341fd05f252ce0fae7d64a56f"
+    },
+    "assessment_results.csv": {
+      "rows": 500000,
+      "bytes": 37242637,
+      "sha256": "7c095c3c3c8959fa77b600f77b5ecb7950f68d009f73b4af0ea6a5d2d5cdd5f2"
+    },
+    "learning_paths.csv": {
+      "rows": 10000,
+      "bytes": 670048,
+      "sha256": "44283176175c8fb66fa6d38661fecb398bafa310ac7fc10104017e97081135a9"
+    }
+  },
+  "provenance": "Fully synthetic data generated locally; no personal or external data.",
+  "determinism": "Python random.Random with fixed seed; stable entity ordering and IDs."
+}

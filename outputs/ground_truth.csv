@@ -1,0 +1,6 @@
+case_id,issue_type,record_id,expected_result,description
+ANOM-001,PREREQUISITE_VIOLATION,REC-ANOM-001,REJECT,Proposed advanced content while prerequisite mastery is below threshold.
+ANOM-002,INVALID_TIMESTAMP,ATT-ANOM-002,FLAG,Attempt end timestamp occurs before start timestamp.
+ANOM-003,INVALID_SKILL_REFERENCE,CNT-ANOM-003,FLAG,Content-to-skill mapping points to a missing skill ID.
+ANOM-004,FUTURE_DATA_LEAKAGE,MASTERY-ANOM-004,REJECT,Mastery calculation includes an attempt later than its as-of time.
+ANOM-005,NO_PROGRESS_LOOP,PATH-ANOM-005,FLAG,Learning path repeats the same activity without a progress event.

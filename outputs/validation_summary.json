@@ -1,0 +1,60 @@
+{
+  "database": {
+    "status": "PASS",
+    "issues": [],
+    "counts": {
+      "learners": 10000,
+      "courses": 1,
+      "skills": 500,
+      "skill_prerequisites": 166,
+      "content_items": 2000,
+      "content_skills": 2000,
+      "attempts": 500000,
+      "assessment_results": 500000,
+      "learning_paths": 10000,
+      "recommendations": 25,
+      "recommendation_outcomes": 0
+    }
+  },
+  "anomaly_fixtures": {
+    "status": "PASS",
+    "cases": [
+      {
+        "issue_type": "PREREQUISITE_VIOLATION",
+        "expected": "REJECT",
+        "detected": true,
+        "pass": true
+      },
+      {
+        "issue_type": "INVALID_TIMESTAMP",
+        "expected": "FLAG",
+        "detected": true,
+        "pass": true
+      },
+      {
+        "issue_type": "INVALID_SKILL_REFERENCE",
+        "expected": "FLAG",
+        "detected": true,
+        "pass": true
+      },
+      {
+        "issue_type": "FUTURE_DATA_LEAKAGE",
+        "expected": "REJECT",
+        "detected": true,
+        "pass": true
+      },
+      {
+        "issue_type": "NO_PROGRESS_LOOP",
+        "expected": "FLAG",
+        "detected": true,
+        "pass": true
+      }
+    ],
+    "ground_truth": {
+      "status": "PASS",
+      "case_count": 5,
+      "ground_truth_count": 5,
+      "issues": []
+    }
+  }
+}

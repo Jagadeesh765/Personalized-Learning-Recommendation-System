@@ -1,0 +1,3 @@
+Automated test suite: 15 passed
+Command: python -m pytest -q
+Validation: full database PASS; all five anomaly fixtures PASS.

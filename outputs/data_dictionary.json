@@ -1,0 +1,526 @@
+{
+  "Learner": {
+    "learner_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; LRN-000001 format"
+    },
+    "learner_name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "Non-empty display name"
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "Synthetic example.test email"
+    },
+    "created_at": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Valid datetime"
+    },
+    "status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "active",
+        "inactive"
+      ],
+      "rule": "Lifecycle state"
+    }
+  },
+  "Course": {
+    "course_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; CRS-000001 format"
+    },
+    "course_name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "Non-empty name"
+    },
+    "status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "active",
+        "inactive"
+      ],
+      "rule": "Lifecycle state"
+    }
+  },
+  "Skill": {
+    "skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; SKL-000001 format"
+    },
+    "course_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Course.course_id"
+    },
+    "skill_name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "Non-empty skill name"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "unique": false,
+      "rule": "Optional description"
+    },
+    "status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "active",
+        "inactive"
+      ],
+      "rule": "Lifecycle state"
+    }
+  },
+  "SkillPrerequisite": {
+    "prerequisite_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; PRQ-000001 format"
+    },
+    "skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Skill.skill_id"
+    },
+    "prerequisite_skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Skill.skill_id; cannot equal skill_id"
+    },
+    "effective_from": {
+      "type": "date",
+      "required": true,
+      "unique": false,
+      "rule": "ISO date"
+    },
+    "effective_to": {
+      "type": "date",
+      "required": false,
+      "unique": false,
+      "rule": "Null/blank means open-ended; must not precede effective_from"
+    }
+  },
+  "ContentItem": {
+    "content_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; CNT-000001 format"
+    },
+    "content_name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "Non-empty name"
+    },
+    "difficulty": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "Easy",
+        "Medium",
+        "Hard"
+      ],
+      "rule": "Controlled vocabulary"
+    },
+    "content_type": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "Video",
+        "Quiz",
+        "Exercise",
+        "Article"
+      ],
+      "rule": "Controlled vocabulary"
+    },
+    "estimated_minutes": {
+      "type": "integer",
+      "required": true,
+      "unique": false,
+      "units": "minutes",
+      "rule": "Positive integer"
+    },
+    "status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "active",
+        "inactive"
+      ],
+      "rule": "Lifecycle state"
+    }
+  },
+  "ContentSkill": {
+    "content_skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; CSM-000001 format"
+    },
+    "content_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to ContentItem.content_id"
+    },
+    "skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Skill.skill_id"
+    },
+    "weight": {
+      "type": "number",
+      "required": true,
+      "unique": false,
+      "units": "0..1",
+      "rule": "Inclusive range 0 to 1"
+    }
+  },
+  "Attempt": {
+    "attempt_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; ATT-<learner-id>-000001 format"
+    },
+    "learner_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Learner.learner_id"
+    },
+    "skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Skill.skill_id"
+    },
+    "score": {
+      "type": "number",
+      "required": true,
+      "unique": false,
+      "units": "percentage points",
+      "rule": "Inclusive range 0 to 100"
+    },
+    "attempt_time": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Chronological per learner"
+    },
+    "attempt_number": {
+      "type": "integer",
+      "required": true,
+      "unique": false,
+      "rule": "Positive and unique per learner"
+    },
+    "duration_minutes": {
+      "type": "integer",
+      "required": true,
+      "unique": false,
+      "units": "minutes",
+      "rule": "Positive integer"
+    }
+  },
+  "AssessmentResult": {
+    "assessment_result_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; RES-0000001 format"
+    },
+    "attempt_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "FK to Attempt.attempt_id; one result per attempt"
+    },
+    "score": {
+      "type": "number",
+      "required": true,
+      "unique": false,
+      "units": "percentage points",
+      "rule": "Copied from source attempt"
+    },
+    "result_status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "Passed",
+        "Needs Improvement"
+      ],
+      "rule": "Derived: Passed at score >= 70"
+    },
+    "graded_at": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Must not precede attempt"
+    }
+  },
+  "LearningPath": {
+    "path_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; PATH-2026-000001 format"
+    },
+    "learner_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Learner.learner_id"
+    },
+    "course_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Course.course_id"
+    },
+    "created_at": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Valid datetime"
+    },
+    "status": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "active",
+        "completed",
+        "paused"
+      ],
+      "rule": "Lifecycle state"
+    }
+  },
+  "Recommendation": {
+    "recommendation_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; generated immutable ID"
+    },
+    "learner_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Learner.learner_id"
+    },
+    "content_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to ContentItem.content_id"
+    },
+    "skill_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Skill.skill_id"
+    },
+    "reason_code": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "COLD_START",
+        "LOW_MASTERY",
+        "DEVELOPING_SKILL",
+        "SKILL_IMPROVEMENT"
+      ],
+      "rule": "Decision traceability"
+    },
+    "explanation": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "Human-readable rationale"
+    },
+    "ranking_score": {
+      "type": "number",
+      "required": true,
+      "unique": false,
+      "rule": "Derived ranking score"
+    },
+    "recommendation_time": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Event timestamp"
+    },
+    "outcome_score": {
+      "type": "number",
+      "required": false,
+      "unique": false,
+      "rule": "Legacy compatibility column; append-only outcomes table is authoritative"
+    },
+    "outcome_recorded_at": {
+      "type": "ISO-8601 datetime",
+      "required": false,
+      "unique": false,
+      "rule": "Legacy compatibility column; not updated by the application"
+    }
+  },
+  "RecommendationOutcome": {
+    "outcome_id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "rule": "PK; generated immutable event ID"
+    },
+    "recommendation_id": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "rule": "FK to Recommendation.recommendation_id"
+    },
+    "outcome_score": {
+      "type": "number",
+      "required": true,
+      "unique": false,
+      "units": "percentage points",
+      "rule": "Inclusive range 0 to 100"
+    },
+    "outcome_type": {
+      "type": "enum",
+      "required": true,
+      "allowed": [
+        "ASSESSMENT",
+        "COMPLETION",
+        "FEEDBACK"
+      ],
+      "rule": "Outcome event category"
+    },
+    "notes": {
+      "type": "string",
+      "required": false,
+      "unique": false,
+      "rule": "Optional note up to 500 characters"
+    },
+    "recorded_at": {
+      "type": "ISO-8601 datetime",
+      "required": true,
+      "unique": false,
+      "rule": "Append-only event timestamp"
+    }
+  },
+  "relationships": [
+    {
+      "parent": "Course",
+      "child": "Skill",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Each skill belongs to one course."
+    },
+    {
+      "parent": "Skill",
+      "child": "SkillPrerequisite",
+      "cardinality": "1:N (dependent and prerequisite roles)",
+      "optional": true,
+      "rule": "Self-referencing skill edges; effective_from required, effective_to optional."
+    },
+    {
+      "parent": "ContentItem",
+      "child": "ContentSkill",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Bridge-table side of ContentItem N:M Skill."
+    },
+    {
+      "parent": "Skill",
+      "child": "ContentSkill",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Bridge-table side of Skill N:M ContentItem."
+    },
+    {
+      "parent": "Learner",
+      "child": "Attempt",
+      "cardinality": "1:N",
+      "optional": true,
+      "rule": "Cold-start learners may have zero attempts."
+    },
+    {
+      "parent": "Skill",
+      "child": "Attempt",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Every attempt assesses one skill."
+    },
+    {
+      "parent": "Attempt",
+      "child": "AssessmentResult",
+      "cardinality": "1:1",
+      "optional": false,
+      "rule": "One derived result per baseline attempt."
+    },
+    {
+      "parent": "Learner",
+      "child": "LearningPath",
+      "cardinality": "1:N",
+      "optional": true,
+      "rule": "A learner may have zero or more paths."
+    },
+    {
+      "parent": "Course",
+      "child": "LearningPath",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Each learning path belongs to one course."
+    },
+    {
+      "parent": "Learner",
+      "child": "Recommendation",
+      "cardinality": "1:N",
+      "optional": true,
+      "rule": "A learner may have zero or more recommendation events."
+    },
+    {
+      "parent": "Recommendation",
+      "child": "RecommendationOutcome",
+      "cardinality": "1:N",
+      "optional": true,
+      "rule": "Zero or more append-only outcome events per recommendation."
+    },
+    {
+      "parent": "ContentItem",
+      "child": "Recommendation",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Each recommendation selects one content item."
+    },
+    {
+      "parent": "Skill",
+      "child": "Recommendation",
+      "cardinality": "1:N",
+      "optional": false,
+      "rule": "Each recommendation targets one skill."
+    }
+  ]
+}
