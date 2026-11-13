@@ -65,20 +65,7 @@ The recommendation engine also provides an explanation for why each learning act
 
 The project follows a simple architecture. The Streamlit dashboard communicates with the FastAPI backend. The backend uses the recommendation engine to process learner information and stores the results in SQLite.
 
-```mermaid
-flowchart TD
-    A[Learner / Administrator] --> B[Streamlit Dashboard]
-    B --> C[FastAPI Backend]
-    C --> D[Recommendation Engine]
-    D --> E[Skill Mastery Calculation]
-    D --> F[Prerequisite Checking]
-    D --> G[Content Selection]
-    E --> H[SQLite Database]
-    F --> H
-    G --> H
-    H --> I[Recommendation History]
-    H --> J[Learning Outcome Tracking]
-```
+![System Architecture](images/system-architecture.png)
 
 ## 7. Project Structure
 
